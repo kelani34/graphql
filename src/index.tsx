@@ -13,11 +13,14 @@ let client = new ApolloClient({
   uri: "https://spacex-production.up.railway.app/",
   cache: new InMemoryCache(),
 });
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>
 );
