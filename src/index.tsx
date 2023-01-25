@@ -10,7 +10,7 @@ import {
 } from "@apollo/client";
 
 let client = new ApolloClient({
-  uri: "",
+  uri: "https://spacex-production.up.railway.app/",
   cache: new InMemoryCache(),
 });
 const root = ReactDOM.createRoot(
