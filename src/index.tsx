@@ -6,7 +6,6 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  gql,
 } from "@apollo/client";
 
 let client = new ApolloClient({

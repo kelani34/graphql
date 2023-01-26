@@ -4,7 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 import { Customer } from "./Types";
 const GET_DATA = gql`
   {
-    allCustomers {
+    customers {
       id
       name
       industry
@@ -18,17 +18,21 @@ function App() {
     console.log("data", data, "error", error, "loading", loading);
   });
   return (
-    <div>
-      {data
-        ? data.allCustomers.map((customer: Customer) => {
-            return (
-              <div key={customer.id}>
-                {customer.name} {customer.industry}
-              </div>
-            );
-          })
-        : null}
-    </div>
+    <>
+      {error ? <p>Somrthing Went wrong</p> : null}
+      {loading ? <p>Loading ...</p> : null}
+      <div>
+        {data
+          ? data.customers.map((customer: Customer) => {
+              return (
+                <div key={customer.id}>
+                  {customer.name} {customer.industry}
+                </div>
+              );
+            })
+          : null}
+      </div>
+    </>
   );
 }
 
