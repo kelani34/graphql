@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { useQuery, gql, useMutation } from "@apollo/client";
 import { Customer } from "./Types";
+import { create } from "domain";
 
 const GET_CUSTOMERS = gql`
   {
@@ -65,6 +66,11 @@ function App() {
         onSubmit={(e) => {
           e.preventDefault();
           createCustomer({ variables: { name: name, industry: industry } });
+
+          if (!error) {
+            setName("");
+            setIndustry("");
+          }
         }}
       >
         <div>
@@ -93,6 +99,7 @@ function App() {
           Submit
         </button>
       </form>
+      {createCustomerError ? <p>OOps... an error occured</p> : null}
       <div>
         {data
           ? data.customers.map((customer: Customer) => {
