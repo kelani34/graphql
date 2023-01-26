@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { useQuery, gql } from "@apollo/client";
-import { Launch } from "./Types";
+import { Customer } from "./Types";
 const GET_DATA = gql`
   {
-    launchesPast(limit: 10) {
-      mission_name
-      launch_date_local
-      launch_site {
-        site_name_long
-      }
+    allCustomers {
+      id
+      name
+      industry
     }
   }
 `;
@@ -22,10 +20,10 @@ function App() {
   return (
     <div>
       {data
-        ? data.launchesPast.map((launch: Launch) => {
+        ? data.allCustomers.map((customer: Customer) => {
             return (
-              <div>
-                {launch.mission_name} {launch.launch_date_local}
+              <div key={customer.id}>
+                {customer.name} {customer.industry}
               </div>
             );
           })
