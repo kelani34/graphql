@@ -12,7 +12,7 @@ const GET_CUSTOMERS = gql`
       industry
       products {
         id
-        desctiption
+        description
         total
       }
     }
