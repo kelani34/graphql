@@ -43,7 +43,7 @@ const AddProducts = ({ customerId }: ProductProps) => {
               <input
                 id="total"
                 type="number"
-                value={total}
+                value={isNaN(total) ? "0" : total}
                 onChange={(e) => {
                   setTotal(parseFloat(e.target.value));
                 }}
