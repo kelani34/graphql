@@ -8,25 +8,22 @@ const AddProducts = ({ customerId }: ProductProps) => {
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={() => {
-          setActive(true);
-        }}
-      >
-        Add Order
-      </button>
+      {active || (
+        <button
+          type="button"
+          onClick={() => {
+            setActive(true);
+          }}
+        >
+          Add Order
+        </button>
+      )}
+
       {active && (
         <div>
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              createCustomer({ variables: { name: name, industry: industry } });
-
-              if (!error) {
-                setDescription("");
-                setTotal("");
-              }
             }}
           >
             <div>
@@ -61,6 +58,7 @@ const AddProducts = ({ customerId }: ProductProps) => {
             </button>
 
             {createCustomerError ? <p>OOps... an error occured</p> : null} */}
+            <button>Add Product</button>
           </form>
         </div>
       )}
