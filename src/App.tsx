@@ -10,6 +10,11 @@ const GET_CUSTOMERS = gql`
       id
       name
       industry
+      products {
+        id
+        desctiption
+        total
+      }
     }
   }
 `;
