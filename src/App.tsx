@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { useQuery, gql, useMutation } from "@apollo/client";
-import { Customer } from "./Types";
+import { Customer, Product } from "./Types";
 import { create } from "domain";
+import AddProducts from "./components/AddProducts";
 
 const GET_CUSTOMERS = gql`
   {
@@ -67,6 +68,7 @@ function App() {
     <>
       {error ? <p>Somrthing Went wrong</p> : null}
       {loading ? <p>Loading ...</p> : null}
+      <h1>Add a Customer</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -89,6 +91,7 @@ function App() {
             }}
           />
         </div>
+        <br />
         <div>
           <label htmlFor="industry">Industry: </label>
           <input
@@ -100,22 +103,46 @@ function App() {
             }}
           />
         </div>
+        <br />
         <button disabled={createCustomerLoading ? true : false} type="submit">
           Submit
         </button>
+
+        {createCustomerError ? <p>OOps... an error occured</p> : null}
+
+        <h1>Customers</h1>
+        <div>
+          {data
+            ? data.customers.map((customer: Customer) => {
+                return (
+                  <div>
+                    <hr />
+                    <h2 key={customer.id}>
+                      {`${customer.name} (${customer.industry})`}
+                    </h2>
+                    {customer.products.map((product: Product) => {
+                      return (
+                        <div key={product.id}>
+                          <p>
+                            <b>Description:</b> {product.description}
+                          </p>
+                          <p>
+                            <b>Amount paid: </b> ${" "}
+                            {(product.total / 100).toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                          </p>
+                        </div>
+                      );
+                    })}
+                    <AddProducts customerId={customer.id} />
+                  </div>
+                );
+              })
+            : null}
+        </div>
       </form>
-      {createCustomerError ? <p>OOps... an error occured</p> : null}
-      <div>
-        {data
-          ? data.customers.map((customer: Customer) => {
-              return (
-                <div key={customer.id}>
-                  {customer.name} {customer.industry}
-                </div>
-              );
-            })
-          : null}
-      </div>
     </>
   );
 }

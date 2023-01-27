@@ -5,8 +5,12 @@ export type Product = {
 };
 
 export type Customer = {
-  id: string;
+  id: number;
   name: string;
   industry: string;
   products: Product[];
 };
+
+export type ProductProps ={
+  customerId: number;
+}
