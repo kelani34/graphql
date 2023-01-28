@@ -72,6 +72,8 @@ function App() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          if (!name || !industry) return;
+
           createCustomer({ variables: { name: name, industry: industry } });
 
           if (!error) {
