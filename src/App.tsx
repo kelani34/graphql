@@ -109,40 +109,39 @@ function App() {
         <button disabled={createCustomerLoading ? true : false} type="submit">
           Submit
         </button>
-
-        {createCustomerError ? <p>OOps... an error occured</p> : null}
-
-        <h1>Customers</h1>
-        <div>
-          {data
-            ? data.customers.map((customer: Customer) => {
-                return (
-                  <div key={customer.id}>
-                    <hr />
-                    <h2>{`${customer.name} (${customer.industry})`}</h2>
-                    {customer.products.map((product: Product) => {
-                      return (
-                        <div key={product.id}>
-                          <p>
-                            <b>Description:</b> {product.description}
-                          </p>
-                          <p>
-                            <b>Amount paid: </b> ${" "}
-                            {(product.total / 100).toLocaleString(undefined, {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })}
-                          </p>
-                        </div>
-                      );
-                    })}
-                    <AddProducts customerId={customer.id} />
-                  </div>
-                );
-              })
-            : null}
-        </div>
       </form>
+      {createCustomerError ? <p>OOps... an error occured</p> : null}
+
+      <h1>Customers</h1>
+      <div>
+        {data
+          ? data.customers.map((customer: Customer) => {
+              return (
+                <div key={customer.id}>
+                  <hr />
+                  <h2>{`${customer.name} (${customer.industry})`}</h2>
+                  {customer.products.map((product: Product) => {
+                    return (
+                      <div key={product.id}>
+                        <p>
+                          <b>Description:</b> {product.description}
+                        </p>
+                        <p>
+                          <b>Amount paid: </b> ${" "}
+                          {(product.total / 100).toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
+                        </p>
+                      </div>
+                    );
+                  })}
+                  <AddProducts customerId={customer.id} />
+                </div>
+              );
+            })
+          : null}
+      </div>
     </>
   );
 }
